@@ -8,28 +8,26 @@ const meals = [
     id: 1,
     name: "Spaghetti Bolognese",
     description: "A classic Italian pasta dish with rich meat sauce.",
-    image: "/images/beef-tacos.jpg",
+    image: "/images/burger.png",
     price: 12.99,
   },
   {
     id: 2,
     name: "Chicken Caesar Salad",
-    description:
-      "Crispy romaine lettuce, grilled chicken, and Caesar dressing.",
-    image: "/images/caesar-salad.jpg",
+    description: "Crispy romaine lettuce, grilled chicken, and Caesar dressing.",
+    image: "/images/pasta.png",
     price: 9.99,
   },
   {
     id: 3,
     name: "Margherita Pizza",
-    description:
-      "Traditional Italian pizza with tomato, mozzarella, and basil.",
-    image: "/images/chicken-curry.jpg",
+    description: "Traditional Italian pizza with tomato, mozzarella, and basil.",
+    image: "/images/pizza.png",
     price: 14.99,
   },
 ];
 
-// Middleware to serve static files from "public/images"
+// Serve static images from the public directory
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 // Meals API endpoint
@@ -37,7 +35,7 @@ app.get("/meals", (req, res) => {
   const host = `${req.protocol}://${req.get("host")}`;
   const mealsWithHostImages = meals.map((meal) => ({
     ...meal,
-    image: `${host}${meal.image}`, // Append host to image paths
+    image: `${host}${meal.image}`,
   }));
 
   res.json(mealsWithHostImages);
@@ -45,11 +43,3 @@ app.get("/meals", (req, res) => {
 
 // Export the app for Vercel
 module.exports = app;
-
-// Start the server locally if not running in Vercel
-if (require.main === module) {
-  const PORT = 3000;
-  app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  });
-}
